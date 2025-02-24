@@ -20,6 +20,7 @@ Below is a list of other things that you will need:
 ## Credits
 - @superhackio - Created the Original source code (and then proceeded to accidentally delete it)
 - @bavario-lginc - Decompiled a CustomCode.bin to "retrieve" the source code. (The decompiled code is the code in this repository)
+- @kairossmg - Helped with the ObjectData models (extracting animations, etc.)
 
 ## Features
 - Supports everything that a [RailMoveObj](https://smgcommunity.github.io/galaxydatabase/config_RailMoveObj.html ) can do.
