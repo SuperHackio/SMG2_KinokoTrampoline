@@ -13,9 +13,10 @@ public:
     void activate();
     void deactivate();
     bool isActive();
+    inline bool isMsgNeedBounce(u32 msg) {
+        return MR::isMsgFloorTouch(msg) || MR::isMsgPlayerHipDropFloor(msg);
+    }
 
-    u32 _D8;
-    u32 _DC;
-    CollisionParts *mBounceCollision; // _E0
-    CollisionParts *mIdleCollision; // _E4
+    CollisionParts* mBounceCollision;
+    CollisionParts* mIdleCollision;
 };

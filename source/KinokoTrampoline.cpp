@@ -1,7 +1,5 @@
 #include "KinokoTrampoline.h"
 
-// sub_7F8CF0 is exist but seems to just be MR::Functor again
-
 KinokoTrampoline::KinokoTrampoline (const char *pName) : RailMoveObj(pName) {
 
 }
@@ -18,9 +16,10 @@ void KinokoTrampoline::init (const JMapInfoIter &rIter) {
     
     if (MR::isValidSwitchA(this)) {
         MR::listenStageSwitchOnOffA(this, MR::Functor(this, &activate), MR::Functor(this, &deactivate));
-        activate();
-    } else 
         deactivate();
+    }
+    else 
+        activate();
     
 }
 
@@ -41,10 +40,26 @@ void KinokoTrampoline::control () {
     MapObjActor::control();
 }
 
-bool KinokoTrampoline::receiveOtherMsg (u32 msg, HitSensor *pSender, HitSensor *pReceiver) {
-    if (isActive()) 
-        if (MR::isMsgFloorTouch(msg) || !MR::isMsgPlayerHipDropFloor(msg)) 
-            MR::startAction(this, "Reaction");
+bool KinokoTrampoline::receiveOtherMsg(u32 msg, HitSensor *pSender, HitSensor *pReceiver) {
+    if (isActive())
+    {
+        if (MR::isSensorPlayer(pSender) && !MR::isSensorEye(pSender))
+        {
+            if (isMsgNeedBounce(msg))
+                MR::startAction(this, "Reaction");
+        }
+        //else
+        //{
+        //    MR::startAction(this, "Reaction");
+        //    LiveActor* pOther = pSender->mActor;
+        //    if (MR::isCalcGravity(pOther))
+        //    {
+        //        /*TVec3f upvec;
+        //        MR::calcUpVec(&upvec, this);*/
+        //        MR::addVelocityJump(pOther, 50.f);
+        //    }
+        //}
+    }
     return RailMoveObj::receiveOtherMsg(msg, pSender, pReceiver);
 }
 
